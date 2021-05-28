@@ -4,12 +4,11 @@ import Button from './Button'
 
 const StyledContainer = styled.div`
     margin: 50px;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
 `
 
-const Task = ({id, desc, isDone, onClick}) => {
+const Task = ({desc, isDone, onClick}) => {
     return (
         <React.Fragment>
             <StyledContainer className={isDone ? 'done' : null}>

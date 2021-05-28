@@ -1,20 +1,22 @@
-import {ADDTASK, REMOVETASK, TOGGLEADDTASK} from '../constants/index'
+import {TOGGLEADDTASK, ADDTASK, REMOVETASK} from '../constants/index'
 
-export const addTask = () => {
+export function toggleAddTask(){
     return {
-        type: ADDTASK
+        type: TOGGLEADDTASK,
     }
 }
 
-export const removeTask = () => {
+export function addTask(payload){
     return {
-        type: REMOVETASK
+        type: ADDTASK,
+        payload,
     }
 }
 
-export const toggleAddTask = () => {
+export function removeTask(payload){
     return {
-        type: TOGGLEADDTASK 
+        type: REMOVETASK,
+        payload
     }
 }
 

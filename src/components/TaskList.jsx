@@ -4,7 +4,10 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import Button from './Button'
 import AddTask from './AddTask'
-import { addTask, removeTask, toggleAddTask } from '../redux/actions/index'
+import { toggleAddTask, addTask, removeTask } from '../redux/actions/index'
+import { useRef } from "react"
+
+
 
 const StyledMainContainer = styled.div`
     margin-top: 150px;
@@ -17,25 +20,35 @@ const StyledTaskListHeader = styled.div`
     justify-content: center;
     align-items: center;
 `
-const mapDispatchToProps = { addTask, removeTask, toggleAddTask }
 
 const mapStateToProps = state => {
-    return { 
-        showAddTask: state.showAddTask, 
-        tasks: state.tasks }
+    return {
+        tasks: state.tasks,
+        showAddTask: state.showAddTask
+    }
 }
 
-const TaskList = ({ addTask, removeTask, showAddTask, tasks, toggleAddTask}) => {
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleAddTask: action => dispatch(toggleAddTask(action)),
+        addTask: task => dispatch(addTask(task)),
+        removeTask: task => dispatch(removeTask(task))
+    }
+}
+
+const TaskList = ({showAddTask, tasks, toggleAddTask, addTask, removeTask}) => {
+    const taskToAdd = useRef()
+
     return (
         <StyledMainContainer>
             <StyledTaskListHeader>
                 <h1 style={{textAlign: 'center', margin: '30px'}}>My Todo App With Redux</h1>
-                <Button text='Show add panel' color='black' onClick={toggleAddTask}/>
-                { showAddTask ? <AddTask onClick={addTask}/> : null }
+                <Button text='Show add panel' color='black' onClick={() => toggleAddTask()}/>
+                { showAddTask === true ? <AddTask onClick={() => addTask(taskToAdd)} taskToAdd={taskToAdd}/> : null }
             </StyledTaskListHeader>
             {tasks.map(e => {
                 return(
-                    <Task key={Math.random()} id={e.id} desc={e.desc} isDone={e.isDone} onClick={removeTask} />
+                    <Task key={e.id} desc={e.desc} isDone={e.isDone} onClick={() => removeTask(e.id)}/>
                 )
             })}
         </StyledMainContainer>

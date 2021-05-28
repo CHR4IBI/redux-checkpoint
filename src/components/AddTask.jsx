@@ -6,10 +6,10 @@ const StyledMainContainer = styled.div`
 
 `
 
-const AddTask = ({onClick}) => {
+const AddTask = ({onClick, taskToAdd}) => {
     return (
         <StyledMainContainer>
-            <input type='text' placeholder='Task...'></input>
+            <input type='text' placeholder='Task...' ref={taskToAdd}></input>
             <Button color='green' text='Add a task' onClick={onClick}/>
         </StyledMainContainer>
     )

@@ -14,7 +14,7 @@ const Button = ({ text, color, onClick }) => {
         width: 100px;
     `
     return (
-        <StyledButton onClick={() => onClick}>
+        <StyledButton onClick={onClick}>
             {text}
         </StyledButton>
     )
