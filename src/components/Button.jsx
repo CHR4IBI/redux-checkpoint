@@ -12,6 +12,7 @@ const Button = ({ text, color, onClick }) => {
         border-radius: 15px;
         height: 30px;
         width: 100px;
+        margin-left: 30px;
     `
     return (
         <StyledButton onClick={onClick}>

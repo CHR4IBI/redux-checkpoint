@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import Button from './Button'
 import AddTask from './AddTask'
-import { toggleAddTask, addTask, removeTask } from '../redux/actions/index'
+import { toggleAddTask, addTask, removeTask, editTask, toggleDone } from '../redux/actions/index'
 import { useRef } from "react"
 
 
@@ -32,11 +32,13 @@ const mapDispatchToProps = dispatch => {
     return {
         toggleAddTask: action => dispatch(toggleAddTask(action)),
         addTask: task => dispatch(addTask(task)),
-        removeTask: task => dispatch(removeTask(task))
+        removeTask: task => dispatch(removeTask(task)),
+        editTask: task => dispatch(editTask(task)),
+        toggleDone: task => dispatch(toggleDone(task))
     }
 }
 
-const TaskList = ({showAddTask, tasks, toggleAddTask, addTask, removeTask}) => {
+const TaskList = ({showAddTask, tasks, toggleAddTask, addTask, removeTask, editTask, toggleDone}) => {
     const taskToAdd = useRef()
 
     return (
@@ -48,7 +50,7 @@ const TaskList = ({showAddTask, tasks, toggleAddTask, addTask, removeTask}) => {
             </StyledTaskListHeader>
             {tasks.map(e => {
                 return(
-                    <Task key={e.id} desc={e.desc} isDone={e.isDone} onClick={() => removeTask(e.id)}/>
+                    <Task key={e.id} desc={e.desc} isDone={e.isDone} removeTask={() => removeTask(e.id)} editTask={() => editTask(e.id)} toggleDone={() => toggleDone(e.id)}/>
                 )
             })}
         </StyledMainContainer>
